@@ -307,6 +307,10 @@ local plugins = {
     "LintaoAmons/scratch.nvim",
     event = "VeryLazy",
   },
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  }
 }
 
 return plugins
