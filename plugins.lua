@@ -350,26 +350,63 @@ local plugins = {
   --   end
   -- },
   {
-      "kylechui/nvim-surround",
-      version = "*", -- Use for stability; omit to use `main` branch for the latest features
-      event = "VeryLazy",
-      config = function()
-          require("nvim-surround").setup({
-              -- Configuration here, or leave empty to use defaults
-          })
-      end
+    "tpope/vim-surround",
+    lazy = false,
   },
+
+  {
+    "tpope/vim-repeat",
+    lazy = false,
+  },
+
   {
       'antonk52/markdowny.nvim',
       config = function()
           require('markdowny').setup()
       end
   },
+
+  {
+    "kiyoon/jupynium.nvim",
+    build = "pip3 install --user .",
+    -- build = "conda run --no-capture-output -n jupynium pip install .",
+    -- enabled = vim.fn.isdirectory(vim.fn.expand "~/miniconda3/envs/jupynium"),
+  },
+  "rcarriga/nvim-notify",   -- optional
+  "stevearc/dressing.nvim", -- optional, UI for :JupyniumKernelSelect
+
+
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+  }
+
 }
 
 vim.keymap.set('v', '<C-b>', ":lua require('markdowny').bold()<cr>", { buffer = 0 })
 vim.keymap.set('v', '<C-i>', ":lua require('markdowny').italic()<cr>", { buffer = 0 })
 vim.keymap.set('v', '<C-k>', ":lua require('markdowny').link()<cr>", { buffer = 0 })
 vim.keymap.set('v', '<C-e>', ":lua require('markdowny').code()<cr>", { buffer = 0 })
+
+-- Example of adding jupynium to cmp setup
+local cmp = require "cmp"
+local compare = cmp.config.compare
+
+cmp.setup({
+  sources = cmp.config.sources({
+    { name = 'jupynium', priority = 1000 },
+    { name = 'nvim_lsp', priority = 100 },
+    -- other sources
+  }),
+  sorting = {
+    priority_weight = 1.0,
+    comparators = {
+      compare.score,
+      compare.recently_used,
+      compare.locality,
+      -- other comparators
+    },
+  },
+})
 
 return plugins

@@ -28,6 +28,7 @@ M.general = {
     ["<leader>u"] = { ":UndotreeToggle<CR>" },
     ["j"] = { "j" },
     ["k"] = { "k" },
+    ["<c-a>"] = { "ggVG" },
   },
   v = {
     ["<leader>f"] = { "0", "go to start of line", opts = { nowait = true } },
@@ -57,5 +58,15 @@ M.dap_python = {
     }
   }
 }
+
+
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+-- Mapping Ctrl-t to switch to the next tab
+map('n', '<C-t>', ':tabnext<CR>', opts)
+
+-- Mapping Ctrl-Shift-t to switch to the previous tab
+map('n', '<C-S-t>', ':tabprev<CR>', opts)
 
 return M

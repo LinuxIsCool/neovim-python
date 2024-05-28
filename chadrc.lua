@@ -16,9 +16,16 @@ vim.opt.spell = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
+local highlights = require "custom.highlights"
+
 ---@type ChadrcConfig 
  local M = {}
- M.ui = {theme = 'catppuccin',transparency = true,}
+ M.ui = {
+  theme = 'catppuccin',transparency = false,
+  hl_override = highlights.override,
+  hl_add = highlights.add,
+}
  M.plugins = "custom.plugins"
  M.mappings = require "custom.mappings"
+ 
  return M
